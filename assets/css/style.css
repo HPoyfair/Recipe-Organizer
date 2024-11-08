@@ -1,0 +1,44 @@
+/* Parent and Child containers for the buttons */
+.Buttons {
+    display: inline-flex;           /* Connect the buttons horizontally */
+    border-radius: 25px;            /* Rounded corners for the container (Adjust if needed) */
+}
+
+.Buttons button {
+    padding: 10px 20px;             /* Change if Needed */
+    border: none;
+    cursor: pointer;                /* Change cursor to pointer on hover */
+    margin: 0;
+    transition: background-color 0.5s ease;  /* Smooth transition for background color */
+}
+
+/* Different background colors for each button */
+.Buttons .AddButton {
+    background-color: lightgreen;
+    border-top-left-radius: 25px;   /* Rounded on the top-left */
+    border-bottom-left-radius: 25px; /* Rounded on the bottom-left */
+}
+
+.Buttons .DeleteButton {
+    background-color: lightcoral;
+    border-radius: 0;
+}
+
+.Buttons .EditButton {
+    background-color: lightblue;
+    border-top-right-radius: 25px;  /* Rounded on the top-right */
+    border-bottom-right-radius: 25px; /* Rounded on the bottom-right */
+}
+
+/* Optional: Effect on Button Hover */
+.Buttons button:hover {
+    opacity: 0.8;
+}
+
+/* Optional: Effect on Button Focus */
+.Buttons button:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+/* End of Buttons Parent and Child Selectors */
