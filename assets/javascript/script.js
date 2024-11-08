@@ -22,7 +22,7 @@ function addRecipe() {
     alert("Recipe added!");
     displayRecipes();
 }
-document.getElementById("addButton").addEventListener("click", addRecipe);
+document.getElementById("AddButton").addEventListener("click", addRecipe);
 
 
 
