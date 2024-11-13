@@ -38,12 +38,12 @@ function deleteRecipe(){
 
 function displayRecipes(filteredRecipes = recipes){
     //alert("hit");
-const recipeBox = document.getElementById("displayIngredients");
+const recipeBox = document.getElementById("displayRecipes");
     
     recipeBox.innerHTML = ""; //clears the recipbox
     //alert("hit");
     filteredRecipes.forEach(recipe => {
-        const recipeElement = document.createElement("div");
+        const recipeElement = document.createElement("section");
         recipeElement.classList.add("recipe-item");
         recipeElement.textContent = recipe.name;
         
@@ -57,7 +57,7 @@ const recipeBox = document.getElementById("displayIngredients");
 
 
 function toggleDisplay(){
-    const recipeBox = document.getElementById("displayIngredients");
+    const recipeBox = document.getElementById("displayRecipes");
    
     if (recipeBox.style.display === "none"){
         recipeBox.style.display = "block";
