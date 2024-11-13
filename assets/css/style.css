@@ -1,33 +1,37 @@
-/* Parent and Child containers for the buttons */
+/* Start of Buttons */
+
 .Buttons {
-    display: inline-flex;           /* Connect the buttons horizontally */
-    border-radius: 25px;            /* Rounded corners for the container (Adjust if needed) */
+    display: inline-flex;
+    border-radius: 25px;
+    border: solid black;
+    /* Border around the whole button group */
+    border-width: 2px;
+    overflow: hidden;
+    /* Ensures the rounded corners are applied correctly */
+    margin: 10px;
 }
 
+/* Button Styles */
 .Buttons button {
-    padding: 10px 20px;             /* Change if Needed */
+    padding: 10px 15px 10px 15px;
     border: none;
-    cursor: pointer;                /* Change cursor to pointer on hover */
+    cursor: pointer;
+    transition: background-color 0.5s ease;
     margin: 0;
-    transition: background-color 0.5s ease;  /* Smooth transition for background color */
+    background-color: transparent;
 }
 
 /* Different background colors for each button */
 .Buttons .AddButton {
-    background-color: lightgreen;
-    border-top-left-radius: 25px;   /* Rounded on the top-left */
-    border-bottom-left-radius: 25px; /* Rounded on the bottom-left */
+    background-color: #88ff88;
 }
 
 .Buttons .DeleteButton {
-    background-color: lightcoral;
-    border-radius: 0;
+    background-color: #ff8888;
 }
 
 .Buttons .EditButton {
-    background-color: lightblue;
-    border-top-right-radius: 25px;  /* Rounded on the top-right */
-    border-bottom-right-radius: 25px; /* Rounded on the bottom-right */
+    background-color: #8888ff;
 }
 
 /* Optional: Effect on Button Hover */
@@ -41,4 +45,91 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-/* End of Buttons Parent and Child Selectors */
+/* End of Buttons */
+
+/* Search Bar */
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    outline: 2px solid #000000;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+#searchInput:focus {
+    outline: 2px solid #2196F3;
+    border-color: #2196F3;
+}
+
+/* End of Search Bar */
+
+
+
+/* Start of Media Queries */
+
+/* Mobile Devices (e.g., small screens, 600px or smaller) */
+@media (max-width: 600px) {
+
+    #searchInput {
+        width: 70%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .Buttons {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .Buttons button {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+/* Tablet Devices (e.g., medium screens, 600px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    #searchInput {
+        width: 80%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .Buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .Buttons button {
+        width: auto;
+        margin: 0px;
+    }
+}
+
+/* Desktop Devices (e.g., large screens, 1025px and up) */
+@media (min-width: 1025px) {
+
+    #searchInput {
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .Buttons {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .Buttons button {
+        width: auto;
+        margin: 0px;
+    }
+}
+
+/* End of Media Queries */
