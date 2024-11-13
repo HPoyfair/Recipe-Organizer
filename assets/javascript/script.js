@@ -1,3 +1,6 @@
+
+
+
 const recipes = [
     { id: 1, name: "Spaghetti Bolognese", ingredients: ["spaghetti", "tomato sauce", "ground beef"], instructions: "Boil spaghetti, cook beef, add sauce." },
     { id: 2, name: "Caesar Salad", ingredients: ["lettuce", "croutons", "parmesan", "caesar dressing"], instructions: "Mix lettuce, add dressing, sprinkle cheese." }
@@ -33,13 +36,13 @@ function deleteRecipe(){
 
 }
 
-function displayRecipes(){
+function displayRecipes(filteredRecipes = recipes){
     //alert("hit");
-const recipeBox = document.getElementById("RecipeBox");
+const recipeBox = document.getElementById("displayIngredients");
     
     recipeBox.innerHTML = ""; //clears the recipbox
     //alert("hit");
-    recipes.forEach(recipe => {
+    filteredRecipes.forEach(recipe => {
         const recipeElement = document.createElement("div");
         recipeElement.classList.add("recipe-item");
         recipeElement.textContent = recipe.name;
@@ -51,4 +54,29 @@ const recipeBox = document.getElementById("RecipeBox");
     
 
 }
-displayRecipes();
+
+
+function toggleDisplay(){
+    const recipeBox = document.getElementById("displayIngredients");
+   
+    if (recipeBox.style.display === "none"){
+        recipeBox.style.display = "block";
+        displayRecipes();
+        
+    }
+    else {
+        recipeBox.style.display = "none";
+    }
+}
+
+document.getElementById("DisplayButton").addEventListener("click", toggleDisplay);
+
+
+function filterRecipes(){
+    //alert("hit");
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const filteredRecipes = recipes.filter(recipe => 
+        recipe.name.toLowerCase().includes(searchInput));
+    
+        displayRecipes(filteredRecipes);
+}
