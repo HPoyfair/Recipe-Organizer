@@ -1,128 +1,129 @@
+let recipes = [];
+let selectedRecipe = null; // Track selected recipe
 
+// Load recipes from localStorage on page load
+function loadRecipesFromLocalStorage() {
+    const storedRecipes = localStorage.getItem('recipes');
+    if (storedRecipes) {
+        recipes = JSON.parse(storedRecipes);
+    }
+    displayRecipes();
+}
 
+// Save recipes to localStorage
+function saveRecipesToLocalStorage() {
+    if (recipes.length > 0) {
+        // If there are recipes, store them in localStorage
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+    } else {
+        // If no recipes, remove the 'recipes' key from localStorage
+        localStorage.removeItem('recipes');
+    }
+}
 
-const recipes = [
-    { id: 1, name: "Spaghetti Bolognese", ingredients: ["spaghetti", "tomato sauce", "ground beef"], file: "assets/recipe-instructions/1 Spaghetti Bolognese.txt" },
-    { id: 2, name: "Caesar Salad", ingredients: ["lettuce", "croutons", "parmesan", "caesar dressing"], file: "assets/recipe-instructions/2 Caesar Salad.txt" }
-    
-];
-
+// Add Recipe
 function addRecipe() {
-    
-
     const nameInput = prompt("Enter the name of the recipe");
+    if (nameInput === null || nameInput.trim() === "") {
+        alert("Recipe name is required!");
+        return;
+    }
+
     const ingredientsInput = prompt("Enter the ingredients, separated by commas");
+    if (ingredientsInput === null || ingredientsInput.trim() === "") {
+        alert("Ingredients are required!");
+        return;
+    }
 
     const recipe = {
-        id: recipes.length + 1, // Unique ID based on the array length
-        name: nameInput, // Recipe name
-        ingredients: ingredientsInput.split(",").map(item => item.trim()) // Split into an array and trim whitespace
+        id: recipes.length + 1,
+        name: nameInput.trim(),
+        ingredients: ingredientsInput.split(",").map(item => item.trim())
     };
 
-    recipes.push(recipe); // Add the new recipe to the recipes array
-    console.log(recipes); // Show the updated recipes array in the console
-
+    recipes.push(recipe);
+    saveRecipesToLocalStorage(); // Save to localStorage
     alert("Recipe added!");
     displayRecipes();
 }
-document.getElementById("AddButton").addEventListener("click", addRecipe);
 
+// Delete Recipe
+function deleteRecipe() {
+    if (selectedRecipe === null) {
+        alert("No recipe selected to delete!");
+        return;
+    }
 
+    // Remove the recipe from the recipes array
+    recipes = recipes.filter(recipe => recipe.id !== selectedRecipe.id);
 
+    saveRecipesToLocalStorage(); // Save updated recipes array to localStorage
 
-function deleteRecipe(){
-   
-
-
+    alert("Recipe deleted!");
+    displayRecipes();
+    selectedRecipe = null;
 }
 
-function displayRecipes(filteredRecipes = recipes){
-    //alert("hit");
-const recipeBox = document.getElementById("displayRecipes");
-    
-    recipeBox.innerHTML = ""; //clears the recipbox
-    //alert("hit");
+// Edit Recipe
+function editRecipe() {
+    if (selectedRecipe === null) {
+        alert("No recipe selected to edit!");
+        return;
+    }
+
+    const newName = prompt("Edit recipe name:", selectedRecipe.name);
+    if (newName === null || newName.trim() === "") {
+        alert("Recipe name is required!");
+        return;
+    }
+
+    const newIngredients = prompt("Edit ingredients, separated by commas:", selectedRecipe.ingredients.join(", "));
+    if (newIngredients === null || newIngredients.trim() === "") {
+        alert("Ingredients are required!");
+        return;
+    }
+
+    selectedRecipe.name = newName.trim();
+    selectedRecipe.ingredients = newIngredients.split(",").map(item => item.trim());
+
+    saveRecipesToLocalStorage(); // Save updated recipes array to localStorage
+
+    alert("Recipe updated!");
+    displayRecipes();
+}
+
+// Display Recipes
+function displayRecipes(filteredRecipes = recipes) {
+    const recipeBox = document.getElementById("displayRecipes");
+    recipeBox.innerHTML = "";
+
     filteredRecipes.forEach(recipe => {
         const recipeElement = document.createElement("section");
         recipeElement.classList.add("recipe-item");
         recipeElement.textContent = recipe.name;
-        
+
         recipeElement.addEventListener("click", () => {
             document.querySelectorAll(".recipe-item").forEach(item => item.classList.remove("highlight"));
-            recipeElement.classList.add("highlight")
-
-            loadRecipeInstructions(recipe.file);
-        } );
-
-
-
-
-
-
-
+            recipeElement.classList.add("highlight");
+            selectedRecipe = recipe;
+        });
 
         recipeBox.appendChild(recipeElement);
-        
     });
-    
-    
-
 }
 
-
-function toggleDisplay(){
-    const recipeBox = document.getElementById("displayRecipes");
-   
-    if (recipeBox.style.display === "none"){
-        recipeBox.style.display = "block";
-        displayRecipes();
-        
-    }
-    else {
-        recipeBox.style.display = "none";
-    }
-}
-
-document.getElementById("DisplayButton").addEventListener("click", toggleDisplay);
-
-
-function filterRecipes(){
-    alert("hit");
+// Filter Recipes
+function filterRecipes() {
     const searchInput = document.getElementById("searchInput").value.toLowerCase();
-    const filteredRecipes = recipes.filter(recipe => 
-        recipe.name.toLowerCase().includes(searchInput));
-    
-        displayRecipes(filteredRecipes);
+    const filteredRecipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(searchInput));
+    displayRecipes(filteredRecipes);
 }
 
 
-function loadRecipeInstructions(filePath) {
-    try {
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("File not found");
-                }
-                return response.text();
-            })
-            .then(text => {
-                const directionsList = document.getElementById("directionsList");
-                directionsList.innerHTML = ""; // Clear previous directions
+// Button event listeners
+document.getElementById("AddButton").addEventListener("click", addRecipe);
+document.getElementById("DeleteButton").addEventListener("click", deleteRecipe);
+document.getElementById("EditButton").addEventListener("click", editRecipe);
 
-                // Split the text by new lines and create list items
-                text.split("\n").forEach(line => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = line;
-                    directionsList.appendChild(listItem);
-                });
-            })
-            .catch(error => {
-                console.error("Error loading recipe instructions:", error);
-            });
-    } catch (error) {
-        console.error("An unexpected error occurred:", error);
-    }
-}
-
-
-
+// Load recipes from localStorage when the page loads
+window.addEventListener("load", loadRecipesFromLocalStorage);
