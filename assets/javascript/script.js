@@ -2,8 +2,8 @@
 
 
 const recipes = [
-    { id: 1, name: "Spaghetti Bolognese", ingredients: ["spaghetti", "tomato sauce", "ground beef"], instructions: "Boil spaghetti, cook beef, add sauce." },
-    { id: 2, name: "Caesar Salad", ingredients: ["lettuce", "croutons", "parmesan", "caesar dressing"], instructions: "Mix lettuce, add dressing, sprinkle cheese." }
+    { id: 1, name: "Spaghetti Bolognese", ingredients: ["spaghetti", "tomato sauce", "ground beef"], file: "assets/recipe-instructions/1 Spaghetti Bolognese.txt" },
+    { id: 2, name: "Caesar Salad", ingredients: ["lettuce", "croutons", "parmesan", "caesar dressing"], file: "assets/recipe-instructions/2 Caesar Salad.txt" }
     
 ];
 
@@ -47,9 +47,23 @@ const recipeBox = document.getElementById("displayRecipes");
         recipeElement.classList.add("recipe-item");
         recipeElement.textContent = recipe.name;
         
+        recipeElement.addEventListener("click", () => {
+            document.querySelectorAll(".recipe-item").forEach(item => item.classList.remove("highlight"));
+            recipeElement.classList.add("highlight")
+
+            loadRecipeInstructions(recipe.file);
+        } );
+
+
+
+
+
+
+
+
         recipeBox.appendChild(recipeElement);
         
-    })
+    });
     
     
 
@@ -73,10 +87,42 @@ document.getElementById("DisplayButton").addEventListener("click", toggleDisplay
 
 
 function filterRecipes(){
-    //alert("hit");
+    alert("hit");
     const searchInput = document.getElementById("searchInput").value.toLowerCase();
     const filteredRecipes = recipes.filter(recipe => 
         recipe.name.toLowerCase().includes(searchInput));
     
         displayRecipes(filteredRecipes);
 }
+
+
+function loadRecipeInstructions(filePath) {
+    try {
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("File not found");
+                }
+                return response.text();
+            })
+            .then(text => {
+                const directionsList = document.getElementById("directionsList");
+                directionsList.innerHTML = ""; // Clear previous directions
+
+                // Split the text by new lines and create list items
+                text.split("\n").forEach(line => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = line;
+                    directionsList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error("Error loading recipe instructions:", error);
+            });
+    } catch (error) {
+        console.error("An unexpected error occurred:", error);
+    }
+}
+
+
+
