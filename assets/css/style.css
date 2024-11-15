@@ -132,10 +132,9 @@
     }
 }
 
-/* End of Media Queries */
-
-.container {
-    border: solid black;
-    
-
+.recipe-item.highlight {
+    background-color: yellow;
+    border: 1px solid #0078d7
 }
+
+/* End of Media Queries */
