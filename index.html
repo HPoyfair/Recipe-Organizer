@@ -13,20 +13,16 @@
 
 <body>
   <div class="dropdown" id="dropdown">
-    <input type="text" id="searchInput" placeholder="Search..." oninput ="filterRecipes()">
+    <input type="text" id="searchInput" placeholder="Search..." oninput="filterRecipes()">
     <div class="dropdown-list" id="dropdownList">
       <!-- Items will be dynamically filtered here -->
     </div>
-    <div class="dropdown" id="dropdown">
-      <input type="text" id="searchInput" placeholder="Search Ingredients...">
-      <div class="dropdown-list" id="dropdownList">
-        <!-- Items will be dynamically filtered here -->
-      </div>
   </div>
+
   <div class="Buttons">
-    <button type="button" class="AddButton" onclick="addRecipe()" aria-label="Add Recipe">Add</button>
-    <button type="button" class="DeleteButton" aria-label="Delete Recipe">Delete</button>
-    <button type="button" class="EditButton" aria-label="Edit Recipe">Edit</button>
+    <button type="button" class="AddButton" id="AddButton" aria-label="Add Recipe">Add</button>
+    <button type="button" class="DeleteButton" id="DeleteButton" aria-label="Delete Recipe">Delete</button>
+    <button type="button" class="EditButton" id="EditButton" aria-label="Edit Recipe">Edit</button>
   </div>
 
   <section class="container" id="displayRecipes">
@@ -38,9 +34,10 @@
       <ol id="directionsList">
           <!-- Direction steps will be displayed here -->
       </ol>
-    </section>
+  </section>
 
-  <script src="assets/javascript/script.js"></script>
+<!-- Add your script at the end of the body, just before closing </body> -->
+<script src="assets/javascript/script.js"></script>
 </body>
 
 </html>
