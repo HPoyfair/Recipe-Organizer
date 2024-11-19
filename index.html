@@ -12,21 +12,22 @@
 </head>
 
 <body>
-  <div class="dropdown" id="dropdown">
-    <input type="text" id="searchInput" placeholder="Search..." oninput ="filterRecipes()">
-    <div class="dropdown-list" id="dropdownList">
+  <div class="dropdown" id="recipeNameDropdown">
+    <input type="text" id="searchInput" placeholder="Search..." oninput="filterRecipes()">
+    <div class="dropdown-list" id="recipeDropdownList">
       <!-- Items will be dynamically filtered here -->
     </div>
-    <div class="dropdown" id="dropdown">
-      <input type="text" id="searchInput" placeholder="Search Ingredients...">
-      <div class="dropdown-list" id="dropdownList">
-        <!-- Items will be dynamically filtered here -->
-      </div>
+  </div>
+  <div class="dropdown" id="ingredientDropdown">
+    <input type="text" id="ingredientsInput" placeholder="Search Ingredients...">
+    <div class="dropdown-list" id="ingredientsDropdownList">
+      <!-- Items will be dynamically filtered here -->
+    </div>
   </div>
   <div class="Buttons">
-    <button type="button" class="AddButton" onclick="addRecipe()" aria-label="Add Recipe">Add</button>
-    <button type="button" class="DeleteButton" aria-label="Delete Recipe">Delete</button>
-    <button type="button" class="EditButton" aria-label="Edit Recipe">Edit</button>
+    <button type="button" id="AddButton" aria-label="Add Recipe">Add</button>
+    <button type="button" id="DeleteButton" aria-label="Delete Recipe">Delete</button>
+    <button type="button" id="EditButton" aria-label="Edit Recipe">Edit</button>
   </div>
 
   <section class="container" id="displayRecipes">
@@ -35,9 +36,9 @@
   
   <section class="container" id="displayDirections">
       <h2>Directions</h2>
-      <ol id="directionsList">
+      <div id="directionsList">
           <!-- Direction steps will be displayed here -->
-      </ol>
+      </div>
     </section>
 
   <script src="assets/javascript/script.js"></script>

@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": "Spaghetti Bolognese",
+        "ingredients": ["spaghetti", "tomato sauce", "ground beef"],
+        "file": "assets/recipe-instructions/1 Spaghetti Bolognese.txt"  
+    },
+    {
+        "id": 2,
+        "name": "Caesar Salad",
+        "ingredients": ["lettuce", "croutons", "parmesan", "caesar dressing"],
+        "file": "assets/recipe-instructions/2 Caesar Salad.txt"
+    },
+    {
+        "id": 3,
+        "name": "Chicken Stir Fry",
+        "ingredients": ["chicken breast", "soy sauce", "vegetables", "ginger", "garlic"],
+        "file": "assets/recipe-instructions/3 Chicken Stir Fry.txt"
+    },
+    {
+        "id": 4,
+        "name": "Pancakes",
+        "ingredients": ["flour", "eggs", "milk", "sugar", "butter"],
+        "file": "assets/recipe-instructions/4 Pancakes.txt"
+    },
+    {
+        "id": 5,
+        "name": "Grilled Cheese Sandwich",
+        "ingredients": ["bread", "cheddar cheese", "butter"],
+        "file": "assets/recipe-instructions/5 Grilled Cheese Sandwich.txt"
+    },
+    {
+        "id": 6,
+        "name": "Guacamole",
+        "ingredients": ["avocado", "lime", "onion", "tomato", "cilantro"],
+        "file": "assets/recipe-instructions/6 Guacamole.txt"
+    },
+    {
+        "id": 7,
+        "name": "Chocolate Chip Cookies",
+        "ingredients": ["flour", "sugar", "butter", "eggs", "chocolate chips"],
+        "file": "assets/recipe-instructions/7 Chocolate Chip Cookies.txt"
+    }
+]

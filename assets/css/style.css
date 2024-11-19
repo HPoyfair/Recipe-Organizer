@@ -3,102 +3,90 @@
 .Buttons {
     display: inline-flex;
     border-radius: 25px;
-    border: solid black;
-    /* Border around the whole button group */
-    border-width: 2px;
-    overflow: hidden;
-    /* Ensures the rounded corners are applied correctly */
+    border: 2px solid black; /* Border around the button group */
+    overflow: hidden; /* Ensures rounded corners */
     margin: 10px;
 }
 
 /* Button Styles */
 .Buttons button {
-    padding: 10px 15px 10px 15px;
+    padding: 10px 15px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.5s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Add opacity transition */
     margin: 0;
     background-color: transparent;
+    font-weight: bold;
 }
 
 /* Different background colors for each button */
-.Buttons .AddButton {
+#AddButton {
     background-color: #88ff88;
 }
 
-.Buttons .DeleteButton {
+#DeleteButton {
     background-color: #ff8888;
 }
 
-.Buttons .EditButton {
+#EditButton {
     background-color: #8888ff;
 }
 
-/* Optional: Effect on Button Hover */
+/* Button Hover Effect */
 .Buttons button:hover {
-    opacity: 0.8;
+    opacity: 0.85; /* Softens the hover effect */
 }
 
-/* Optional: Effect on Button Focus */
+/* Button Focus Effect */
 .Buttons button:focus {
     outline: none;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
 }
 
 /* End of Buttons */
 
-/* Search Bar */
+/* Search Bar Styles */
 
-#searchInput {
-    width: 100%;
+#searchInput, #ingredientsInput {
+    width: calc(100% - 20px); /* Adjusted to match container padding */
     padding: 10px;
     border: 1px solid #cccccc;
     outline: 2px solid #000000;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 10px;
     box-sizing: border-box;
 }
 
-#searchInput:focus {
+#searchInput:focus, #ingredientsInput:focus {
     outline: 2px solid #2196F3;
     border-color: #2196F3;
 }
 
 /* End of Search Bar */
 
+/* Media Queries for Responsive Design */
 
-
-/* Start of Media Queries */
-
-/* Mobile Devices (e.g., small screens, 600px or smaller) */
+/* Mobile Devices (600px or smaller) */
 @media (max-width: 600px) {
-
-    #searchInput {
-        width: 70%;
-        margin-left: 10px;
-        margin-right: 10px;
+    #searchInput, #ingredientsInput {
+        width: calc(100% - 20px); /* Ensure it fits within padding */
     }
 
     .Buttons {
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch; /* Full width on mobile */
     }
 
     .Buttons button {
         width: 100%;
-        margin: 0;
     }
 }
 
-/* Tablet Devices (e.g., medium screens, 600px to 1024px) */
+/* Tablet Devices (601px to 1024px) */
 @media (min-width: 601px) and (max-width: 1024px) {
-
-    #searchInput {
-        width: 80%;
-        margin-left: 10px;
-        margin-right: 10px;
+    #searchInput, #ingredientsInput {
+        width: calc(100% - 40px); /* Centered and balanced */
+        margin: 10px;
     }
 
     .Buttons {
@@ -108,17 +96,14 @@
 
     .Buttons button {
         width: auto;
-        margin: 0px;
     }
 }
 
-/* Desktop Devices (e.g., large screens, 1025px and up) */
+/* Desktop Devices (1025px and up) */
 @media (min-width: 1025px) {
-
-    #searchInput {
-        width: 90%;
-        margin-left: 10px;
-        margin-right: 10px;
+    #searchInput, #ingredientsInput {
+        width: calc(90% - 20px); /* Balanced with other elements */
+        margin: 10px;
     }
 
     .Buttons {
@@ -128,13 +113,15 @@
 
     .Buttons button {
         width: auto;
-        margin: 0px;
     }
 }
 
+/* Recipe Item Highlight */
 .recipe-item.highlight {
-    background-color: yellow;
-    border: 1px solid #0078d7
+    background-color: #ffeb3b;
+    border: 1px solid #0078d7;
+    padding: 5px;
+    border-radius: 4px;
 }
 
 /* End of Media Queries */
