@@ -104,6 +104,8 @@ function editRecipe() {
     saveRecipesToLocalStorage();
     alert("Recipe updated!");
     displayRecipes();
+    displayIngredients();
+    displayDirections();
 }
 
 // Display Recipes
@@ -126,7 +128,16 @@ function displayRecipes(filteredRecipes = recipes) {
 
         recipeBox.appendChild(recipeElement);
     });
+
+    // Ensure selected recipe is highlighted after the list is refreshed
+    if (selectedRecipe) {
+        const selectedElement = Array.from(recipeBox.children).find(item => item.textContent === selectedRecipe.name);
+        if (selectedElement) {
+            selectedElement.classList.add("highlight");
+        }
+    }
 }
+
 
 // Display Ingredients
 function displayIngredients() {
