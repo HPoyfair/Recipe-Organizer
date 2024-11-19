@@ -73,6 +73,12 @@ To install and run the Recipe Organizer locally, follow these steps:
 ### Searching for Recipes
 - Use the search bar to type a recipe name or an ingredient. Recipes matching the search query will be displayed.
 
+### Product Image
+<img width="1322" alt="Screenshot 2024-11-18 at 9 56 59 PM" src="https://github.com/user-attachments/assets/26117e9b-96a9-4d45-8e83-81ee92b5c1a4">
+
+### Product Link
+https://hpoyfair.github.io/Recipe-Organizer/
+
 ---
 
 ## Credits
