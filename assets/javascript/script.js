@@ -7,16 +7,18 @@ function loadRecipesFromLocalStorage() {
     if (storedRecipes) {
         recipes = JSON.parse(storedRecipes);
     }
-    displayRecipes();
+    displayRecipes();  // Display all recipes after loading
+
+    // Ensure the ingredients and directions sections are correctly displayed or hidden
+    displayIngredients();
+    displayDirections();
 }
 
 // Save recipes to localStorage
 function saveRecipesToLocalStorage() {
     if (recipes.length > 0) {
-        // If there are recipes, store them in localStorage
         localStorage.setItem('recipes', JSON.stringify(recipes));
     } else {
-        // If no recipes, remove the 'recipes' key from localStorage
         localStorage.removeItem('recipes');
     }
 }
@@ -35,14 +37,21 @@ function addRecipe() {
         return;
     }
 
+    const directionsInput = prompt("Enter the directions, separated by commas");
+    if (directionsInput === null || directionsInput.trim() === "") {
+        alert("Directions are required!");
+        return;
+    }
+
     const recipe = {
         id: recipes.length + 1,
         name: nameInput.trim(),
-        ingredients: ingredientsInput.split(",").map(item => item.trim())
+        ingredients: ingredientsInput.split(",").map(item => item.trim()),
+        directions: directionsInput.split(",").map(item => item.trim())  // Store directions
     };
 
     recipes.push(recipe);
-    saveRecipesToLocalStorage(); // Save to localStorage
+    saveRecipesToLocalStorage();
     alert("Recipe added!");
     displayRecipes();
 }
@@ -54,15 +63,13 @@ function deleteRecipe() {
         return;
     }
 
-    // Remove the recipe from the recipes array
     recipes = recipes.filter(recipe => recipe.id !== selectedRecipe.id);
-
-    saveRecipesToLocalStorage(); // Save updated recipes array to localStorage
-
+    saveRecipesToLocalStorage();
     alert("Recipe deleted!");
     displayRecipes();
     selectedRecipe = null;
     displayIngredients();
+    displayDirections();
 }
 
 // Edit Recipe
@@ -84,11 +91,17 @@ function editRecipe() {
         return;
     }
 
+    const newDirections = prompt("Edit directions, separated by commas:", selectedRecipe.directions.join(", "));
+    if (newDirections === null || newDirections.trim() === "") {
+        alert("Directions are required!");
+        return;
+    }
+
     selectedRecipe.name = newName.trim();
     selectedRecipe.ingredients = newIngredients.split(",").map(item => item.trim());
+    selectedRecipe.directions = newDirections.split(",").map(item => item.trim());
 
-    saveRecipesToLocalStorage(); // Save updated recipes array to localStorage
-
+    saveRecipesToLocalStorage();
     alert("Recipe updated!");
     displayRecipes();
 }
@@ -96,7 +109,7 @@ function editRecipe() {
 // Display Recipes
 function displayRecipes(filteredRecipes = recipes) {
     const recipeBox = document.getElementById("displayRecipes");
-    recipeBox.innerHTML = "";
+    recipeBox.innerHTML = ""; // Clear the previous display
 
     filteredRecipes.forEach(recipe => {
         const recipeElement = document.createElement("section");
@@ -107,7 +120,8 @@ function displayRecipes(filteredRecipes = recipes) {
             document.querySelectorAll(".recipe-item").forEach(item => item.classList.remove("highlight"));
             recipeElement.classList.add("highlight");
             selectedRecipe = recipe;
-            displayIngredients(); //Update ingredients display when a recipe is clicked
+            displayIngredients(); // Update ingredients display when a recipe is clicked
+            displayDirections();  // Update directions display when a recipe is clicked
         });
 
         recipeBox.appendChild(recipeElement);
@@ -119,20 +133,45 @@ function displayIngredients() {
     const ingredientsList = document.getElementById("IngredientsList");
     const displayIngredientsSection = document.getElementById("displayIngredients");
 
-    if (selectedRecipe === null) {
-        // Hide the ingredients section if no recipe is selected
-        displayIngredientsSection.style.display = "none";
+    // Check if there's a selected recipe and if it has ingredients
+    if (selectedRecipe === null || selectedRecipe.ingredients.length === 0) {
+        displayIngredientsSection.style.display = "none";  // Hide if no ingredients
         return;
     }
 
-    // Show the ingredients section
-    displayIngredientsSection.style.display = "block";
-
-    // Join the ingredients array into a comma-separated string
+    displayIngredientsSection.style.display = "block";  // Show the ingredients section
     const ingredientsString = selectedRecipe.ingredients.join(", ");
+    ingredientsList.textContent = ingredientsString;
 
-    // Display the ingredients string inside the IngredientsList element
-    ingredientsList.textContent = ingredientsString;  // Use textContent to show it as a single string
+    if (ingredientsString.trim().length > 0) {
+        ingredientsList.style.borderStyle = "solid";
+    } else {
+        ingredientsList.style.borderStyle = "none";
+    }
+}
+
+// Display Directions
+function displayDirections() {
+    const directionsList = document.getElementById("directionsList");
+    const displayDirectionsSection = document.getElementById("displayDirections");
+
+    // Check if there's a selected recipe and if it has directions
+    if (selectedRecipe === null || selectedRecipe.directions.length === 0) {
+        displayDirectionsSection.style.display = "none";  // Hide if no directions
+        return;
+    }
+
+    displayDirectionsSection.style.display = "block";  // Show the directions section
+    directionsList.innerHTML = "";  // Clear previous directions list
+
+    // Add a border to directions section if directions are available
+    directionsList.style.borderStyle = "solid";
+
+    selectedRecipe.directions.forEach(direction => {
+        const listItem = document.createElement("li");
+        listItem.textContent = direction;
+        directionsList.appendChild(listItem);
+    });
 }
 
 // Filter Recipes
@@ -142,11 +181,14 @@ function filterRecipes() {
     displayRecipes(filteredRecipes);
 }
 
-
 // Button event listeners
 document.getElementById("AddButton").addEventListener("click", addRecipe);
 document.getElementById("DeleteButton").addEventListener("click", deleteRecipe);
 document.getElementById("EditButton").addEventListener("click", editRecipe);
 
 // Load recipes from localStorage when the page loads
-window.addEventListener("load", loadRecipesFromLocalStorage);
+window.addEventListener("load", () => {
+    loadRecipesFromLocalStorage();
+    displayIngredients();  // Ensure ingredients section visibility is correct on load
+    displayDirections();   // Ensure directions section visibility is correct on load
+});
