@@ -1,3 +1,10 @@
+body {
+    background: linear-gradient(to right,  #ff6262, #ffa755); /* Gradient Background */
+    margin: 0;
+    padding: 0;
+        font-family: Arial, sans-serif; /* Define a font family */
+  }
+
 /* Start of Buttons */
 
 .Buttons {
@@ -68,7 +75,44 @@
 
 /* End of Search Bar */
 
+/* Start of Containers */
 
+.container {
+    margin-left: 10px;
+}
+
+.RecipeContainer {
+    margin:0;
+    margin-left:5px;
+}
+
+#displayIngredients, #displayDirections {
+    display: none; /* Hide these sections initially (Will show up later using JavaScript)*/
+}
+
+#directionsList {
+    display:inline-block;
+    border: 2px solid #000000; /* You can adjust this to match the ingredients style */
+    padding: 5px;
+    padding-left: 25px;
+    border-radius: 5px;
+    background-color: lightgray;
+}
+
+#IngredientsList {
+    display: inline-block;
+    border-style: none;
+    background-color: lightgray;
+}
+
+.ingredients-text {
+    margin: 0;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+
+/* End of Containers */
 
 /* Start of Media Queries */
 
@@ -133,8 +177,11 @@
 }
 
 .recipe-item.highlight {
-    background-color: yellow;
-    border: 1px solid #0078d7
+    background-color: lightgray;
+    border: 2px solid black;
+    border-radius: 5px;
+    display:inline-block;
+    padding:5px;
 }
 
 /* End of Media Queries */
