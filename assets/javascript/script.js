@@ -62,6 +62,7 @@ function deleteRecipe() {
     alert("Recipe deleted!");
     displayRecipes();
     selectedRecipe = null;
+    displayIngredients();
 }
 
 // Edit Recipe
@@ -106,10 +107,32 @@ function displayRecipes(filteredRecipes = recipes) {
             document.querySelectorAll(".recipe-item").forEach(item => item.classList.remove("highlight"));
             recipeElement.classList.add("highlight");
             selectedRecipe = recipe;
+            displayIngredients(); //Update ingredients display when a recipe is clicked
         });
 
         recipeBox.appendChild(recipeElement);
     });
+}
+
+// Display Ingredients
+function displayIngredients() {
+    const ingredientsList = document.getElementById("IngredientsList");
+    const displayIngredientsSection = document.getElementById("displayIngredients");
+
+    if (selectedRecipe === null) {
+        // Hide the ingredients section if no recipe is selected
+        displayIngredientsSection.style.display = "none";
+        return;
+    }
+
+    // Show the ingredients section
+    displayIngredientsSection.style.display = "block";
+
+    // Join the ingredients array into a comma-separated string
+    const ingredientsString = selectedRecipe.ingredients.join(", ");
+
+    // Display the ingredients string inside the IngredientsList element
+    ingredientsList.textContent = ingredientsString;  // Use textContent to show it as a single string
 }
 
 // Filter Recipes
